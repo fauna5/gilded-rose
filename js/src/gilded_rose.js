@@ -5,10 +5,12 @@ function Item(name, sell_in, quality) {
 }
 
 var items = []
+var AGED_BRIE = 'Aged Brie'
+
 
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+    if (items[i].name != AGED_BRIE && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (items[i].quality > 0) {
         if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
           items[i].quality = items[i].quality - 1
