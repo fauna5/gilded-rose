@@ -17,11 +17,11 @@ function update_quality() {
 
     if (items[i].name === BACKSTAGE_PASSES) {
       if(items[i].quality < 50) {
-        if (items[i].sell_in > 10 && items[i].sell_in < 50) {
+        if (items[i].sell_in >= 10 && items[i].sell_in < 49) {
           items[i].quality += 1;
-        } else if (items[i].sell_in > 5 && items[i].sell_in <= 10) {
+        } else if (items[i].sell_in >= 5 && items[i].sell_in < 10) {
           items[i].quality += 2;
-        } else if (items[i].sell_in <= 5) {
+        } else if (items[i].sell_in < 5) {
           items[i].quality += 3;
         }
       }
@@ -35,9 +35,7 @@ function update_quality() {
       }
     }
 
-    items[i].sell_in = items[i].sell_in - 1;
-
-    if (items[i].sell_in < 0) {
+    if (items[i].sell_in <= 0) {
       if (items[i].name === BACKSTAGE_PASSES) {
         items[i].quality = 0;
       } else if (items[i].name === AGED_BRIE) {
@@ -50,5 +48,7 @@ function update_quality() {
         }
       }
     }
+
+    items[i].sell_in = items[i].sell_in - 1;
   }
 }
