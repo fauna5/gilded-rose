@@ -5,24 +5,26 @@ function Item(name, sell_in, quality) {
 }
 
 var items = [];
+
 var AGED_BRIE = 'Aged Brie';
 var BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
 var SULFURAS = 'Sulfuras, Hand of Ragnaros';
 
 function update_quality() {
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].name === SULFURAS) {
-      continue;
+  items = items.map(item => {
+    if (item.name === SULFURAS) {
+      return item;
     }
-    if (items[i].name === AGED_BRIE) {
-      items[i] = updateBrie(items[i]);
-    } else if (items[i].name === BACKSTAGE_PASSES) {
-      items[i] = updateBackstagePasses(items[i]);
+    if (item.name === AGED_BRIE) {
+      item = updateBrie(item);
+    } else if (item.name === BACKSTAGE_PASSES) {
+      item = updateBackstagePasses(item);
     } else {
-      items[i] = updateStandard(items[i]);
+      item = updateStandard(item);
     }
-    items[i].sell_in -= 1;
-  }
+    item.sell_in -= 1;
+    return item;
+  })
 }
 
 function updateBrie(brie){
