@@ -47,6 +47,11 @@ describe('Gilded Rose', function() {
         update_quality();
         expect(items[0].quality).toEqual(31);
       });
+      it('increases the quality by 2 if quality < 50 and sell in date pasees, but not past 50', function() {
+        items = [new Item(AGED_BRIE, 3, 49)];
+        update_quality();
+        expect(items[0].quality).toEqual(50);
+      });
       it('does not change the quality if quality = 50', function() {
         items = [new Item(AGED_BRIE, 3, 50)];
         update_quality();
@@ -56,6 +61,11 @@ describe('Gilded Rose', function() {
         items = [new Item(AGED_BRIE, -1, 50)];
         update_quality();
         expect(items[0].quality).toEqual(50);
+      });
+      it('reduces the sell_in by 1', function() {
+        items = [new Item(AGED_BRIE, 1, 30)];
+        update_quality();
+        expect(items[0].sell_in).toEqual(0);
       });
     });
     describe(BACKSTAGE_PASSES, () => {
@@ -75,16 +85,31 @@ describe('Gilded Rose', function() {
           update_quality();
           expect(items[0].quality).toEqual(32);
         });
+        it('increases the quality by 2 if sell_in is is between 6 and 10, but not past 50', function() {
+          items = [new Item(BACKSTAGE_PASSES, 6, 49)];
+          update_quality();
+          expect(items[0].quality).toEqual(50);
+        });
         it('increases the quality by 3 if sell_in is is between 0 and 5', function() {
           items = [new Item(BACKSTAGE_PASSES, 2, 30)];
           update_quality();
           expect(items[0].quality).toEqual(33);
+        });
+        it('increases the quality by 3 if sell_in is is between 0 and 5, but not past 50', function() {
+          items = [new Item(BACKSTAGE_PASSES, 2, 49)];
+          update_quality();
+          expect(items[0].quality).toEqual(50);
         });
       });
       it('the quality goes to zero after sell in date passes', function() {
         items = [new Item(BACKSTAGE_PASSES, -1, 50)];
         update_quality();
         expect(items[0].quality).toEqual(0);
+      });
+      it('reduces the sell_in by 1', function() {
+        items = [new Item(BACKSTAGE_PASSES, 1, 30)];
+        update_quality();
+        expect(items[0].sell_in).toEqual(0);
       });
     });
     describe(SULFURAS, () => {

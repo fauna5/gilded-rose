@@ -52,6 +52,7 @@ function updateBackstagePasses(pass){
       pass.quality += 3;
     }
   }
+  pass.quality = pass.quality > 50 ? 50 : pass.quality;
   return pass;
 }
 
