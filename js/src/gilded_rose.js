@@ -4,13 +4,14 @@ function Item(name, sell_in, quality) {
   this.quality = quality;
 }
 
-var items = []
-var AGED_BRIE = 'Aged Brie'
+var items = [];
+var AGED_BRIE = 'Aged Brie';
+var BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
 
 
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].name != AGED_BRIE && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+    if (items[i].name != AGED_BRIE && items[i].name != BACKSTAGE_PASSES) {
       if (items[i].quality > 0) {
         if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
           items[i].quality = items[i].quality - 1
@@ -19,7 +20,7 @@ function update_quality() {
     } else {
       if (items[i].quality < 50) {
         items[i].quality = items[i].quality + 1
-        if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
+        if (items[i].name == BACKSTAGE_PASSES) {
           if (items[i].sell_in < 11) {
             if (items[i].quality < 50) {
               items[i].quality = items[i].quality + 1
@@ -38,7 +39,7 @@ function update_quality() {
     }
     if (items[i].sell_in < 0) {
       if (items[i].name != 'Aged Brie') {
-        if (items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+        if (items[i].name != BACKSTAGE_PASSES) {
           if (items[i].quality > 0) {
             if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
               items[i].quality = items[i].quality - 1
