@@ -20,17 +20,17 @@ function update_quality() {
       item = updateBrie(item);
     } else if (item.name === BACKSTAGE_PASSES) {
       item = updateBackstagePasses(item);
-    } else if (item.name === CONJURED){
+    } else if (item.name === CONJURED) {
       item = updateConjured(item);
     } else {
       item = updateStandard(item);
     }
     item.sell_in -= 1;
     return item;
-  })
+  });
 }
 
-function updateBrie(brie){
+function updateBrie(brie) {
   if (brie.quality < 50) {
     brie.quality += 1;
   }
@@ -40,10 +40,10 @@ function updateBrie(brie){
   return brie;
 }
 
-function updateBackstagePasses(pass){
+function updateBackstagePasses(pass) {
   if (pass.sell_in <= 0) {
     pass.quality = 0;
-  } else if(pass.quality < 50) {
+  } else if (pass.quality < 50) {
     if (pass.sell_in >= 10 && pass.sell_in < 49) {
       pass.quality += 1;
     } else if (pass.sell_in >= 5 && pass.sell_in < 10) {
@@ -56,7 +56,7 @@ function updateBackstagePasses(pass){
   return pass;
 }
 
-function updateConjured(item){
+function updateConjured(item) {
   var quality = item.quality;
   if (item.sell_in <= 0) {
     quality -= 4;
@@ -67,7 +67,7 @@ function updateConjured(item){
   return item;
 }
 
-function updateStandard(item){
+function updateStandard(item) {
   var quality = item.quality;
   if (item.sell_in <= 0) {
     quality -= 2;
