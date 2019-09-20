@@ -14,41 +14,48 @@ function update_quality() {
     if (items[i].name === SULFURAS) {
       continue;
     }
-
-    if (items[i].name === BACKSTAGE_PASSES) {
-      if(items[i].quality < 50) {
-        if (items[i].sell_in >= 10 && items[i].sell_in < 49) {
-          items[i].quality += 1;
-        } else if (items[i].sell_in >= 5 && items[i].sell_in < 10) {
-          items[i].quality += 2;
-        } else if (items[i].sell_in < 5) {
-          items[i].quality += 3;
-        }
-      }
-    } else if (items[i].name === AGED_BRIE) {
-      if (items[i].quality < 50) {
-        items[i].quality += 1;
-      }
+    if (items[i].name === AGED_BRIE) {
+      items[i] = updateBrie(items[i]);
+    } else if (items[i].name === BACKSTAGE_PASSES) {
+      items[i] = updateBackstagePasses(items[i]);
     } else {
-      if (items[i].quality > 0) {
-        items[i].quality -= 1;
-      }
+      items[i] = updateStandard(items[i]);
     }
-
-    if (items[i].sell_in <= 0) {
-      if (items[i].name === BACKSTAGE_PASSES) {
-        items[i].quality = 0;
-      } else if (items[i].name === AGED_BRIE) {
-        if (items[i].quality < 50) {
-          items[i].quality += 1;
-        }
-      } else {
-        if (items[i].quality > 0) {
-          items[i].quality -= 1;
-        }
-      }
-    }
-
-    items[i].sell_in = items[i].sell_in - 1;
+    items[i].sell_in -= 1;
   }
+}
+
+function updateBrie(brie){
+  if (brie.quality < 50) {
+    brie.quality += 1;
+  }
+  if (brie.sell_in <= 0 && brie.quality < 50) {
+    brie.quality += 1;
+  }
+  return brie;
+}
+
+function updateBackstagePasses(pass){
+  if (pass.sell_in <= 0) {
+    pass.quality = 0;
+  } else if(pass.quality < 50) {
+    if (pass.sell_in >= 10 && pass.sell_in < 49) {
+      pass.quality += 1;
+    } else if (pass.sell_in >= 5 && pass.sell_in < 10) {
+      pass.quality += 2;
+    } else if (pass.sell_in < 5) {
+      pass.quality += 3;
+    }
+  }
+  return pass;
+}
+
+function updateStandard(item){
+  if (item.quality > 0) {
+    item.quality -= 1;
+    if (item.sell_in <= 0 && item.quality > 0) {
+      item.quality -= 1;
+    }
+  }
+  return item;
 }
