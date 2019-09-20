@@ -38,7 +38,7 @@ function update_quality() {
       items[i].sell_in = items[i].sell_in - 1;
     }
     if (items[i].sell_in < 0) {
-      if (items[i].name != 'Aged Brie') {
+      if (items[i].name != AGED_BRIE) {
         if (items[i].name != BACKSTAGE_PASSES) {
           if (items[i].quality > 0) {
             if (items[i].name != SULFURAS) {
