@@ -48,5 +48,17 @@ describe('Gilded Rose', function() {
         });
       });
     });
+    describe(SULFURAS, () => {
+      it('does not change quality of Sulfuras', function() {
+        items = [new Item(SULFURAS, 20, 100)];
+        update_quality();
+        expect(items[0].quality).toEqual(100);
+      });
+      it('does not change sell_in of Sulfuras', function() {
+        items = [new Item(SULFURAS, 20, 100)];
+        update_quality();
+        expect(items[0].sell_in).toEqual(20);
+      });
+    });
   });
 });
