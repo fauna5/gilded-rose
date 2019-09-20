@@ -41,22 +41,22 @@ describe('Gilded Rose', function() {
         update_quality();
         expect(items[0].quality).toEqual(31);
       });
-      it('does not change the quality if quality > 50', function() {
-        items = [new Item(AGED_BRIE, 3, 100)];
+      it('does not change the quality if quality = 50', function() {
+        items = [new Item(AGED_BRIE, 3, 50)];
         update_quality();
-        expect(items[0].quality).toEqual(100);
+        expect(items[0].quality).toEqual(50);
       });
-      it('does not change the quality if quality > 50 and sell in date passes', function() {
-        items = [new Item(AGED_BRIE, -1, 100)];
+      it('does not change the quality if quality = 50 and sell in date passes', function() {
+        items = [new Item(AGED_BRIE, -1, 50)];
         update_quality();
-        expect(items[0].quality).toEqual(100);
+        expect(items[0].quality).toEqual(50);
       });
     });
     describe(BACKSTAGE_PASSES, () => {
-      it('does not change the quality if quality > 50', function() {
-        items = [new Item(BACKSTAGE_PASSES, 20, 100)];
+      it('does not change the quality if quality = 50', function() {
+        items = [new Item(BACKSTAGE_PASSES, 20, 50)];
         update_quality();
-        expect(items[0].quality).toEqual(100);
+        expect(items[0].quality).toEqual(50);
       });
       describe('Backstage passs with quality < 50', () => {
         it('increases the quality by 1 if sell_in is between 11 and 50', function() {
@@ -76,24 +76,24 @@ describe('Gilded Rose', function() {
         });
       });
       it('the quality goes to zero after sell in date passes', function() {
-        items = [new Item(BACKSTAGE_PASSES, -1, 100)];
+        items = [new Item(BACKSTAGE_PASSES, -1, 50)];
         update_quality();
         expect(items[0].quality).toEqual(0);
       });
     });
     describe(SULFURAS, () => {
       it('does not change quality of Sulfuras', function() {
-        items = [new Item(SULFURAS, 20, 100)];
+        items = [new Item(SULFURAS, 20, 80)];
         update_quality();
-        expect(items[0].quality).toEqual(100);
+        expect(items[0].quality).toEqual(80);
       });
       it('does not change quality of Sulfuras even after sell in passes', function() {
-        items = [new Item(SULFURAS, -1, 100)];
+        items = [new Item(SULFURAS, -1, 80)];
         update_quality();
-        expect(items[0].quality).toEqual(100);
+        expect(items[0].quality).toEqual(80);
       });
       it('does not change sell_in of Sulfuras', function() {
-        items = [new Item(SULFURAS, 20, 100)];
+        items = [new Item(SULFURAS, 20, 80)];
         update_quality();
         expect(items[0].sell_in).toEqual(20);
       });
