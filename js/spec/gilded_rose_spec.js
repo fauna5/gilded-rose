@@ -17,6 +17,12 @@ describe('Gilded Rose', function() {
     expect(items[0].quality).toEqual(48);
   });
 
+  it('reduces the quality by 2 every day after sell_in date passes but not past zero', function() {
+    items = [new Item('foo', -2, 1)];
+    update_quality();
+    expect(items[0].quality).toEqual(0);
+  });
+
   it('does not reduce the quality if if reaches zero', function() {
     items = [new Item('foo', 3, 0)];
     update_quality();
@@ -96,6 +102,33 @@ describe('Gilded Rose', function() {
         items = [new Item(SULFURAS, 20, 80)];
         update_quality();
         expect(items[0].sell_in).toEqual(20);
+      });
+    });
+    describe(CONJURED, () => {
+      it('quality reduces by 2 each time', function() {
+        items = [new Item(CONJURED, 2, 30)];
+        update_quality();
+        expect(items[0].quality).toEqual(28);
+      });
+      it('quality reduces by 2 but not past zero', function() {
+        items = [new Item(CONJURED, 2, 1)];
+        update_quality();
+        expect(items[0].quality).toEqual(0);
+      });
+      it('quality reduces by 4 after sell in date', function() {
+        items = [new Item(CONJURED, -1, 30)];
+        update_quality();
+        expect(items[0].quality).toEqual(26);
+      });
+      it('quality reduces by 4 after sell in date but not past zero', function() {
+        items = [new Item(CONJURED, -1, 3)];
+        update_quality();
+        expect(items[0].quality).toEqual(0);
+      });
+      it('reduces the sell_in by 1', function() {
+        items = [new Item(CONJURED, 1, 30)];
+        update_quality();
+        expect(items[0].sell_in).toEqual(0);
       });
     });
   });

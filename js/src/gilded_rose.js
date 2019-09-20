@@ -9,6 +9,7 @@ var items = [];
 var AGED_BRIE = 'Aged Brie';
 var BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
 var SULFURAS = 'Sulfuras, Hand of Ragnaros';
+var CONJURED = 'Conjured';
 
 function update_quality() {
   items = items.map(item => {
@@ -19,6 +20,8 @@ function update_quality() {
       item = updateBrie(item);
     } else if (item.name === BACKSTAGE_PASSES) {
       item = updateBackstagePasses(item);
+    } else if (item.name === CONJURED){
+      item = updateConjured(item);
     } else {
       item = updateStandard(item);
     }
@@ -52,12 +55,24 @@ function updateBackstagePasses(pass){
   return pass;
 }
 
-function updateStandard(item){
-  if (item.quality > 0) {
-    item.quality -= 1;
-    if (item.sell_in <= 0 && item.quality > 0) {
-      item.quality -= 1;
-    }
+function updateConjured(item){
+  var quality = item.quality;
+  if (item.sell_in <= 0) {
+    quality -= 4;
+  } else {
+    quality -= 2;
   }
+  item.quality = quality < 0 ? 0 : quality;
+  return item;
+}
+
+function updateStandard(item){
+  var quality = item.quality;
+  if (item.sell_in <= 0) {
+    quality -= 2;
+  } else {
+    quality -= 1;
+  }
+  item.quality = quality < 0 ? 0 : quality;
   return item;
 }
